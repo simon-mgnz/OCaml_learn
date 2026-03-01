@@ -31,3 +31,40 @@ for k=1 to n-1 do
     print_newline();
   end
 done;;
+
+(* Exercice 5 *)
+let n = 10000 in
+let count = ref 0 in
+let k = ref 0 in
+
+while !count < n do
+    (* calcul de la somme des carrés des chiffres *)
+  let temp = ref !k in
+  let somme = ref 0 in
+
+  while !temp > 0 do
+    let d = !temp mod 10 in
+    somme := !somme + (d * d*d);
+    temp := !temp / 10
+  done;
+
+  if !k = !somme then begin
+    print_int !k;
+    print_newline();
+    incr count
+  end;
+
+  incr k
+done
+
+(* Exercice 6 *)
+let n = 100 in
+let u = ref 1.0 in
+
+for k = 1 to n do
+  u := sin !u;
+  let denom = sqrt (3.0 /. float_of_int k) in
+  let rapport = !u /. denom in
+  print_float rapport;
+  print_newline ()
+done;;
