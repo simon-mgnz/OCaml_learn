@@ -79,7 +79,7 @@ let profondeur arbre =
     match a with
     | Vide -> [compteur]
     | N1(a,d,g)-> (aux d (compteur+1)) @ (aux g (compteur+1))
-  in aux arbre 1
+  in aux arbre 1;;
 let pop liste =
   match liste with
   |[] -> failwith "Vide"
