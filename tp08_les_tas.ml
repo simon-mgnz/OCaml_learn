@@ -81,6 +81,41 @@ let tasser t =
     tamiser t k done;;
 (* Complexité : n*O(log(n)) = O(n*log(n))*)
 
-(* PARTIE 3 : Tri par tas *)
+((* PARTIE 3 : Tri par tas *)
 
 (* Question 8 *)
+
+let tamiser2 t i j =
+  let n = j in
+  let rec aux j = match j with
+    | j when 2*j+1 >= n -> () (* feuille *)
+    | k when 2*k+1 = n-1 -> (* un fils gauche *)
+        if t.(j) < t.(2*j+1) then let temp = t.(j) in
+          t.(j) <- t.(2*j+1);
+          t.(2*j+1) <- temp
+    | _-> (* 2 fils *)
+        let m=max t.(2*j+1) t.(2*j+2) in
+        if t.(j)<m then begin
+          let k = if m = t.(2*j+1) then 2*j+1 else 2*j+2 in
+          t.(k)<- t.(j);
+          t.(j) <- m;
+          aux k;
+        end;
+  in aux i;;
+(*Meme chose mais on change la 2e ligne:  Array.length t -> j*)
+
+(* Exercice 9 *)
+let tri_tas t =
+  let n = Array.length t in
+  
+  tasser t;
+  
+  for i=n-1 downto 1 do
+    let tmp = t.(0) in
+    t.(0) <- t.(i);
+    t.(i) <- tmp;
+    tamiser2 t 0 i 
+  done;;
+
+
+(* Complexité log n pour tamiser2, on le fait n fois donc complexité du tri nlog(n)*)
